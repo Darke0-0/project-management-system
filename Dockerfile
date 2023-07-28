@@ -1,7 +1,7 @@
 FROM python:3.10-alpine3.18
 LABEL maintainers="projmanager.com"
 
-ENV PYTHONBUFFERED 1
+ENV PYTHONUNBUFFERED 1
 
 COPY ./requirements.txt /tmp/requirements.txt
 COPY ./requirements.dev.txt /tmp/requirements.dev.txt
