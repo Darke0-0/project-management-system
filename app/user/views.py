@@ -31,10 +31,14 @@ class CreateUserView(generics.CreateAPIView):
     
     def post(self, request):
         serializer = UserSerializer(data=request.data)
+        # print(serializer)
         if serializer.is_valid():
             serializer.save()
-            return Response({'message': 'Registration successful!'}, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            message = 'Registration Successful'
+            print(message)
+            return render(request, 'user-login.html', context={'message': message})
+        message = serializer.error_messages
+        return render(request, 'new-account.html', {'serializer': serializer, 'message':message})
 
 class LoginPageView(View):
     
