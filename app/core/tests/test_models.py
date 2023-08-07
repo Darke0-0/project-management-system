@@ -46,12 +46,12 @@ class ModelTests(TestCase):
     #     self.assertTrue(user.is_staff)
         
     def test_create_projects(self):
-        """Test creating a recipe is successful."""
+        """Test creating a project is successful."""
         user = get_user_model().objects.create_user(
             'test@example.com',
             'testpass123',
         )
-        recipe = models.Projects.objects.create(
+        project = models.Projects.objects.create(
             user=user,
             title='Sample project name',
             start_date='2012-12-12',
@@ -59,4 +59,4 @@ class ModelTests(TestCase):
             description='Sample project description.',
         )
 
-        self.assertEqual(str(recipe), recipe.title)
+        self.assertEqual(str(project), project.title)

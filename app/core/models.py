@@ -42,13 +42,36 @@ class User(AbstractBaseUser, PermissionsMixin):
 
 class Projects(models.Model):
     """Project Model"""
-    user = models.ForeignKey(settings.AUTH_USER_MODEL,
-                             on_delete=models.CASCADE)
-    
     title = models.CharField(max_length=255)
     description = models.TextField(blank=True)
-    start_date = models.DateTimeField()
+    start_date = models.DateField()
     end_date = models.DateField()
+    team_lead = models.ManyToManyField(User)
+    costing = models.DecimalField(max_digits=8,decimal_places=2)
 
     def __str__(self):
         return self.title
+    
+class Tag(models.Model):
+    """Tag for filtering projects."""
+    name = models.CharField(max_length=255)
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+    )
+    def __str__(self):
+        return self.name
+
+
+class Components(models.Model):
+    """Components for projects."""
+    name = models.CharField(max_length=255)
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+    )
+    # users = models.ManyToManyField(User)
+    # client = models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.name

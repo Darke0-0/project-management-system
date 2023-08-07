@@ -5,11 +5,7 @@ from django import forms
 from django.contrib.auth import login, authenticate
 
 from rest_framework import generics, authentication, permissions
-from rest_framework.authtoken.views import ObtainAuthToken
-from rest_framework.settings import api_settings
-from rest_framework.authtoken.models import Token
 from django.views.generic import View
-from rest_framework.response import Response
 from django.contrib.auth.forms import AuthenticationForm
 
 from django.contrib.auth.views import AuthenticationForm
@@ -41,7 +37,7 @@ class CreateUserView(generics.CreateAPIView):
         return render(request, 'new-account.html', {'serializer': serializer, 'message':message})
 
 class LoginPageView(View):
-    
+
     def get(self, request):
         return render(request, template_name="user-login.html")
         

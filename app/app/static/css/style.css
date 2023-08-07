@@ -3986,6 +3986,12 @@ input.custom-control-input {
     margin-right: 27px;
 }
 
+.list-group{
+    margin-bottom: 10px;
+    overflow:scroll;
+    -webkit-overflow-scrolling: touch;
+}
+
 .list-group-item {
     background: transparent;
 }
