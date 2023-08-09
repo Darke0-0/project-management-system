@@ -12,4 +12,5 @@ urlpatterns = [
     path('create/', views.CreateUserView.as_view(), name='create'),
     path('token/', views.LoginPageView.as_view(), name='token'),
     path('me/', views.ManageUserView.as_view(), name='me'),
+    path('logout/', views.logout, name='logout'),
 ]

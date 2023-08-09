@@ -45,14 +45,14 @@
         <div class="simlebar-sc" data-simplebar>
             <ul class="sidebar-menu tf">
                 <li class="sidebar-submenu">
-                    <a href="index.html" class="sidebar-menu-dropdown current-menu-item">
+                    <a href="index.html" class="sidebar-menu-dropdown">
                         <i class='bx bxs-home'></i>
                         <span>Dashboard</span>
                         <div class="dropdown-icon">
                             <i class='bx bx-chevron-down'></i>
                         </div>
                     </a>
-                    <ul class="sidebar-menu sidebar-menu-dropdown-content active">
+                    <ul class="sidebar-menu sidebar-menu-dropdown-content">
                         <li>
                             <a href="index.html">
                                 Dashboard
@@ -76,12 +76,12 @@
                     </ul>
                 </li>
                 <li class="sidebar-submenu">
-                    <a href="project.html" class="sidebar-menu-dropdown">
+                    <a href="project.html" class="sidebar-menu-dropdown current-menu-item">
                         <i class='bx bxs-bolt'></i>
                         <span>Project</span>
                         <div class="dropdown-icon"><i class='bx bx-chevron-down'></i></div>
                     </a>
-                    <ul class="sidebar-menu sidebar-menu-dropdown-content">
+                    <ul class="sidebar-menu sidebar-menu-dropdown-content active">
                         <li>
                             <a href="{% url 'projects:user_project' %}">
                                 Project
@@ -270,7 +270,7 @@
                         <a class="dropdown-item d-block" href="#"><span class="badge bg-success float-end">11</span><i class="bx bx-wrench font-size-16 align-middle me-1"></i> <span>Settings</span></a>
                         <a class="dropdown-item" href="#"><i class="bx bx-lock-open font-size-16 align-middle me-1"></i> <span>Lock screen</span></a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item text-danger" href="user-login.html"><i class="bx bx-power-off font-size-16 align-middle me-1 text-danger"></i> <span>Logout</span></a>
+                        <a class="dropdown-item text-danger" href="{% url 'user:logout' %}"><i class="bx bx-power-off font-size-16 align-middle me-1 text-danger"></i> <span>Logout</span></a>
                     </div>
                 </div>
             </div>
@@ -395,278 +395,34 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr class="odd">
-                                                        <td class="text-center">1</td>
-                                                        <td>
-                                                            <a href="#" class="d-flex "> <span>Design Updated</span> </a>
-                                                        </td>
-                                                        <td><span class="badge badge-danger-light">High</span></td>
-                                                        <td>12-02-2021</td>
-                                                        <td>16-06-2021</td>
-                                                        <td>
-                                                            <div class="progress progress-sm">
-                                                                <div class="progress-bar bg-primary w-30"></div>
-                                                            </div>
-                                                        </td>
-                                                        <td><span class="badge badge-warning">On hold</span></td>
-                                                        <td>
-                                                            <div class="dropdown">
-                                                                <a href="javascript:void(0);" class="btn-link" data-bs-toggle="dropdown" aria-expanded="false">
-                                                                    <i class='bx bx-dots-horizontal-rounded'></i>
-                                                                </a>
-                                                                <div class="dropdown-menu dropdown-menu-right">
-                                                                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#delete_client"><i class="bx bx-trash"></i> Delete</a>
-                                                                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#edit_client"><i class="bx bx-edit mr-5"></i>Edit</a>
+                                                    {% for project in queryset %}
+                                                        <tr class="odd">
+                                                            <td class="text-center">1</td>
+                                                            <td>
+                                                                <a href="#" class="d-flex "> <span>{{ project.title }}</span> </a>
+                                                            </td>
+                                                            <td><span class="badge badge-danger-light">High</span></td>
+                                                            <td>{{ project.start_date }}</td>
+                                                            <td>{{ project.end_date }}</td>
+                                                            <td>
+                                                                <div class="progress progress-sm">
+                                                                    <div class="progress-bar bg-primary w-30"></div>
                                                                 </div>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                    <tr class="even">
-                                                        <td class="text-center">2</td>
-                                                        <td>
-                                                            <a href="#" class="d-flex "> <span>Website Develop</span> </a>
-                                                        </td>
-                                                        <td><span class="badge badge-success-light">Low</span></td>
-                                                        <td>01-01-2021</td>
-                                                        <td>22-04-2021</td>
-                                                        <td>
-                                                            <div class="progress progress-sm">
-                                                                <div class="progress-bar bg-yellow w-50"></div>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <div class="d-flex"> <span class="badge badge-danger">Dealy</span>
-                                                                <div class="mt-1 ms-1"> <span class="feather feather-info text-danger" data-bs-toggle="tooltip" data-bs-placement="top" title="" data-bs-original-title="Dealy by 99 days"></span> </div>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <div class="dropdown">
-                                                                <a href="javascript:void(0);" class="btn-link" data-bs-toggle="dropdown" aria-expanded="false">
-                                                                    <i class='bx bx-dots-horizontal-rounded'></i>
-                                                                </a>
-                                                                <div class="dropdown-menu dropdown-menu-right">
-                                                                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#delete_client"><i class="bx bx-trash"></i> Delete</a>
-                                                                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#edit_client"><i class="bx bx-edit mr-5"></i>Edit</a>
+                                                            </td>
+                                                            <td><span class="badge badge-warning">On hold</span></td>
+                                                            <td>
+                                                                <div class="dropdown">
+                                                                    <a href="javascript:void(0);" class="btn-link" data-bs-toggle="dropdown" aria-expanded="false">
+                                                                        <i class='bx bx-dots-horizontal-rounded'></i>
+                                                                    </a>
+                                                                    <div class="dropdown-menu dropdown-menu-right">
+                                                                        <a class="dropdown-item" href="#" data-toggle="modal" data-target="#delete_client"><i class="bx bx-trash"></i> Delete</a>
+                                                                        <a class="dropdown-item" href="#" data-toggle="modal" data-target="#edit_client"><i class="bx bx-edit mr-5"></i>Edit</a>
+                                                                    </div>
                                                                 </div>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                    <tr class="odd">
-                                                        <td class="text-center">3</td>
-                                                        <td>
-                                                            <a href="#" class="d-flex "><span>Digital Marketing</span> </a>
-                                                        </td>
-                                                        <td><span class="badge badge-warning-light">Medium</span></td>
-                                                        <td>11-04-2021</td>
-                                                        <td>16-06-2021</td>
-                                                        <td>
-                                                            <div class="progress progress-sm">
-                                                                <div class="progress-bar bg-primary w-100"></div>
-                                                            </div>
-                                                        </td>
-                                                        <td> <span class="badge badge-success">Completed</span> </td>
-                                                        <td>
-                                                            <div class="dropdown">
-                                                                <a href="javascript:void(0);" class="btn-link" data-bs-toggle="dropdown" aria-expanded="false">
-                                                                    <i class='bx bx-dots-horizontal-rounded'></i>
-                                                                </a>
-                                                                <div class="dropdown-menu dropdown-menu-right">
-                                                                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#delete_client"><i class="bx bx-trash"></i> Delete</a>
-                                                                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#edit_client"><i class="bx bx-edit mr-5"></i>Edit</a>
-                                                                </div>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                    <tr class="even">
-                                                        <td class="text-center">4</td>
-                                                        <td>
-                                                            <a href="#" class="d-flex "><span>Ad Analysis</span> </a>
-                                                        </td>
-                                                        <td><span class="badge badge-danger-light">High</span></td>
-                                                        <td>11-03-2021</td>
-                                                        <td>19-05-2021</td>
-                                                        <td>
-                                                            <div class="progress progress-sm">
-                                                                <div class="progress-bar bg-primary w-80"></div>
-                                                            </div>
-                                                        </td>
-                                                        <td> <span class="badge badge-success">Completed</span> </td>
-                                                        <td>
-                                                            <div class="dropdown">
-                                                                <a href="javascript:void(0);" class="btn-link" data-bs-toggle="dropdown" aria-expanded="false">
-                                                                    <i class='bx bx-dots-horizontal-rounded'></i>
-                                                                </a>
-                                                                <div class="dropdown-menu dropdown-menu-right">
-                                                                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#delete_client"><i class="bx bx-trash"></i> Delete</a>
-                                                                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#edit_client"><i class="bx bx-edit mr-5"></i>Edit</a>
-                                                                </div>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                    <tr class="odd">
-                                                        <td class="text-center">5</td>
-                                                        <td>
-                                                            <a href="#" class="d-flex "><span>Design update</span> </a>
-                                                        </td>
-                                                        <td><span class="badge badge-danger-light">High</span></td>
-                                                        <td>05-02-2021</td>
-                                                        <td>21-04-2021</td>
-                                                        <td>
-                                                            <div class="progress progress-sm">
-                                                                <div class="progress-bar bg-primary w-70"></div>
-                                                            </div>
-                                                        </td>
-                                                        <td> <span class="badge badge-success">Completed</span> </td>
-                                                        <td>
-                                                            <div class="dropdown">
-                                                                <a href="javascript:void(0);" class="btn-link" data-bs-toggle="dropdown" aria-expanded="false">
-                                                                    <i class='bx bx-dots-horizontal-rounded'></i>
-                                                                </a>
-                                                                <div class="dropdown-menu dropdown-menu-right">
-                                                                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#delete_client"><i class="bx bx-trash"></i> Delete</a>
-                                                                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#edit_client"><i class="bx bx-edit mr-5"></i>Edit</a>
-                                                                </div>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                    <tr class="even">
-                                                        <td class="text-center">6</td>
-                                                        <td>
-                                                            <a href="#" class="d-flex "><span>Design update</span> </a>
-                                                        </td>
-                                                        <td><span class="badge badge-danger-light">High</span></td>
-                                                        <td>21-01-2021</td>
-                                                        <td>15-03-2021</td>
-                                                        <td>
-                                                            <div class="progress progress-sm">
-                                                                <div class="progress-bar bg-primary w-40"></div>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <div class="d-flex"> <span class="badge badge-success">Completed</span>
-                                                                <div class="mt-1 ms-1"> <span class="feather feather-info text-danger" data-bs-toggle="tooltip" data-bs-placement="top" title="" data-bs-original-title="Dealy by 30 days"></span> </div>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <div class="dropdown">
-                                                                <a href="javascript:void(0);" class="btn-link" data-bs-toggle="dropdown" aria-expanded="false">
-                                                                    <i class='bx bx-dots-horizontal-rounded'></i>
-                                                                </a>
-                                                                <div class="dropdown-menu dropdown-menu-right">
-                                                                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#delete_client"><i class="bx bx-trash"></i> Delete</a>
-                                                                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#edit_client"><i class="bx bx-edit mr-5"></i>Edit</a>
-                                                                </div>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                    <tr class="odd">
-                                                        <td class="text-center">7</td>
-                                                        <td>
-                                                            <a href="#" class="d-flex "><span>Design update</span> </a>
-                                                        </td>
-                                                        <td><span class="badge badge-danger-light">High</span></td>
-                                                        <td>23-01-2021</td>
-                                                        <td>25-02-2021</td>
-                                                        <td>
-                                                            <div class="progress progress-sm">
-                                                                <div class="progress-bar bg-yellow w-40"></div>
-                                                            </div>
-                                                        </td>
-                                                        <td> <span class="badge badge-success">Completed</span> </td>
-                                                        <td>
-                                                            <div class="dropdown">
-                                                                <a href="javascript:void(0);" class="btn-link" data-bs-toggle="dropdown" aria-expanded="false">
-                                                                    <i class='bx bx-dots-horizontal-rounded'></i>
-                                                                </a>
-                                                                <div class="dropdown-menu dropdown-menu-right">
-                                                                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#delete_client"><i class="bx bx-trash"></i> Delete</a>
-                                                                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#edit_client"><i class="bx bx-edit mr-5"></i>Edit</a>
-                                                                </div>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                    <tr class="even">
-                                                        <td class="text-center">8</td>
-                                                        <td>
-                                                            <a href="#" class="d-flex "><span>Design update</span> </a>
-                                                        </td>
-                                                        <td><span class="badge badge-danger-light">High</span></td>
-                                                        <td>13-03-2021</td>
-                                                        <td>05-05-2021</td>
-                                                        <td>
-                                                            <div class="progress progress-sm">
-                                                                <div class="progress-bar bg-primary w-100"></div>
-                                                            </div>
-                                                        </td>
-                                                        <td> <span class="badge badge-warning">On Hold</span> </td>
-                                                        <td>
-                                                            <div class="dropdown">
-                                                                <a href="javascript:void(0);" class="btn-link" data-bs-toggle="dropdown" aria-expanded="false">
-                                                                    <i class='bx bx-dots-horizontal-rounded'></i>
-                                                                </a>
-                                                                <div class="dropdown-menu dropdown-menu-right">
-                                                                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#delete_client"><i class="bx bx-trash"></i> Delete</a>
-                                                                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#edit_client"><i class="bx bx-edit mr-5"></i>Edit</a>
-                                                                </div>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                    <tr class="even">
-                                                        <td class="text-center">9</td>
-                                                        <td>
-                                                            <a href="#" class="d-flex "> <span>Design update</span> </a>
-                                                        </td>
-                                                        <td><span class="badge badge-success-light">Low</span></td>
-                                                        <td>01-01-2021</td>
-                                                        <td>22-04-2021</td>
-                                                        <td>
-                                                            <div class="progress progress-sm">
-                                                                <div class="progress-bar bg-yellow w-50"></div>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <div class="d-flex"> <span class="badge badge-danger">Dealy</span>
-                                                                <div class="mt-1 ms-1"> <span class="feather feather-info text-danger" data-bs-toggle="tooltip" data-bs-placement="top" title="" data-bs-original-title="Dealy by 99 days"></span> </div>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <div class="dropdown">
-                                                                <a href="javascript:void(0);" class="btn-link" data-bs-toggle="dropdown" aria-expanded="false">
-                                                                    <i class='bx bx-dots-horizontal-rounded'></i>
-                                                                </a>
-                                                                <div class="dropdown-menu dropdown-menu-right">
-                                                                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#delete_client"><i class="bx bx-trash"></i> Delete</a>
-                                                                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#edit_client"><i class="bx bx-edit mr-5"></i>Edit</a>
-                                                                </div>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                    <tr class="odd">
-                                                        <td class="text-center">10</td>
-                                                        <td>
-                                                            <a href="#" class="d-flex "><span>Design update</span> </a>
-                                                        </td>
-                                                        <td><span class="badge badge-warning-light">Medium</span></td>
-                                                        <td>11-04-2021</td>
-                                                        <td>16-06-2021</td>
-                                                        <td>
-                                                            <div class="progress progress-sm">
-                                                                <div class="progress-bar bg-primary w-100"></div>
-                                                            </div>
-                                                        </td>
-                                                        <td> <span class="badge badge-success">Completed</span> </td>
-                                                        <td>
-                                                            <div class="dropdown">
-                                                                <a href="javascript:void(0);" class="btn-link" data-bs-toggle="dropdown" aria-expanded="false">
-                                                                    <i class='bx bx-dots-horizontal-rounded'></i>
-                                                                </a>
-                                                                <div class="dropdown-menu dropdown-menu-right">
-                                                                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#delete_client"><i class="bx bx-trash"></i> Delete</a>
-                                                                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#edit_client"><i class="bx bx-edit mr-5"></i>Edit</a>
-                                                                </div>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
+                                                            </td>
+                                                        </tr>
+                                                    {% endfor %}
                                                 </tbody>
                                             </table>
                                         </div>
@@ -679,8 +435,8 @@
                                             <div class="dataTables_paginate paging_simple_numbers" id="task-profile_paginate">
                                                 <ul class="pagination">
                                                     <li class="paginate_button page-item previous disabled" id="task-profile_previous"><a href="#" aria-controls="task-profile" data-dt-idx="0" tabindex="0" class="page-link">Previous</a></li>
-                                                    <li class="paginate_button page-item "><a href="#" aria-controls="task-profile" data-dt-idx="1" tabindex="0" class="page-link">01</a></li>
-                                                    <li class="paginate_button page-item active"><a href="#" aria-controls="task-profile" data-dt-idx="1" tabindex="0" class="page-link">02</a></li>
+                                                    <li class="paginate_button page-item active"><a href="#" aria-controls="task-profile" data-dt-idx="1" tabindex="0" class="page-link">01</a></li>
+                                                    <li class="paginate_button page-item "><a href="#" aria-controls="task-profile" data-dt-idx="1" tabindex="0" class="page-link">02</a></li>
                                                     <li class="paginate_button page-item "><a href="#" aria-controls="task-profile" data-dt-idx="1" tabindex="0" class="page-link">03</a></li>
                                                     <li class="paginate_button page-item next disabled" id="task-profile_next"><a href="#" aria-controls="task-profile" data-dt-idx="2" tabindex="0" class="page-link">Next</a></li>
                                                 </ul>

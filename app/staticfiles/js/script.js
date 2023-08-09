@@ -38,7 +38,6 @@ $(window).on('load', function() {
 });
 
 
-
 // var $a = self.$widget.find('a[data-rating-value="' + ratingValue() + '"]');
 
 

@@ -18,5 +18,6 @@ app_name = 'projects'
 urlpatterns = [
     path('', include(router.urls)),
     path('createproject/', views.ProjectCreateView.as_view(), name='create_project'),
-    path('load_users/', views.load_users, name='load_users')
+    path('userproject/', views.ProjectSetView.as_view(), name='user_project'),
+    path('load_users/', views.load_users, name='load_users'),
 ]

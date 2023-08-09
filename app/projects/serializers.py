@@ -36,26 +36,23 @@ class ProjectsSerializer(serializers.ModelSerializer):
         model = Projects
         fields = [
             'id', 'title', 'start_date', 'end_date',
+            'team_lead','costing',
             'tags','components',
         ]
         read_only_fields = ['id']
 
     def _get_or_create_tags(self, tags, project):
         """Handle getting or creating tags as needed."""
-        auth_user = self.context['request'].user
         for tag in tags:
             tag_obj, created = Tag.objects.get_or_create(
-                user=auth_user,
                 **tag,
             )
             project.tags.add(tag_obj)
 
     def _get_or_create_components(self, components, project):
         """Handle getting or creating components as needed."""
-        auth_user = self.context['request'].user
         for component in components:
             component_obj, created = Components.objects.get_or_create(
-                user=auth_user,
                 **component,
             )
             project.components.add(component_obj)

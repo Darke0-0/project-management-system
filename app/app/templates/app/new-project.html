@@ -59,13 +59,13 @@
                                 User Profile
                             </a>
                         </li>
-<li>
-                            <a href="user-login.html">
+                        <li>
+                            <a href="{% url 'user:token' %}">
                                 User Login
                             </a>
                         </li>
                         <li>
-                            <a href="new-account.html">
+                            <a href="{% url 'user:create' %}">
                                New Account
                             </a>
                         </li>
@@ -79,8 +79,13 @@
                     </a>
                     <ul class="sidebar-menu sidebar-menu-dropdown-content active">
                         <li>
+                            <a href="{% url 'projects:user_project' %}">
+                                Project
+                            </a>
+                        </li>
+                        <li>
                             <a href="project.html">
-                               Project
+                               Project Report
                             </a>
                         </li>
                         <li>
@@ -89,7 +94,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="new-project.html">
+                            <a href="{% url 'projects:create_project' %}">
                                 New Project
                             </a>
                         </li>
@@ -261,7 +266,7 @@
                         <a class="dropdown-item d-block" href="#"><span class="badge bg-success float-end">11</span><i class="bx bx-wrench font-size-16 align-middle me-1"></i> <span>Settings</span></a>
                         <a class="dropdown-item" href="#"><i class="bx bx-lock-open font-size-16 align-middle me-1"></i> <span>Lock screen</span></a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item text-danger" href="user-login.html"><i class="bx bx-power-off font-size-16 align-middle me-1 text-danger"></i> <span>Logout</span></a>
+                        <a class="dropdown-item text-danger" href="{% url 'user:logout' %}"><i class="bx bx-power-off font-size-16 align-middle me-1 text-danger"></i> <span>Logout</span></a>
                     </div>
                 </div>
             </div>
@@ -280,28 +285,37 @@
                                 {% csrf_token %}
                                 <div class="row">
                                     <div class="col-md-6 col-sm-12 mb-24">
-                                        <div class="form-group"> <label class="form-label">Project Title</label> <input class="form-control" placeholder="Software Development"> </div>
+                                        <div class="form-group"> <label class="form-label">Project Title</label> <input required class="form-control" name="title" id="title" placeholder="Title"> </div>
                                     </div>
                                     <div class="col-md-3 col-sm-12 mb-24">
-                                        <div class="form-group"> <label class="form-label">Form:</label>
+                                        <div class="form-group"> <label class="form-label">FROM:</label>
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <div class="input-group-text"> <i class='bx bx-calendar'></i> </div>
-                                                </div><input class="form-control fc-datepicker" placeholder="DD-MM-YYY" type="text"> </div>
+                                                </div>
+                                                <span class="datepicker-toggle-button"></span>
+                                                <input required class="form-control fc-datepicker" name="start_date" id="start_date" placeholder="DD-MM-YYY" type="date">
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="col-md-3 col-sm-12 mb-24">
-                                        <div class="form-group"> <label class="form-label">To:</label>
+                                        <div class="form-group"> <label class="form-label">ETA:</label>
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <div class="input-group-text"> <i class='bx bx-calendar'></i> </div>
-                                                </div><input class="form-control fc-datepicker" placeholder="DD-MM-YYY" type="text"> </div>
+                                                </div>
+                                                <span class="datepicker-toggle-button"></span>
+                                                <input required class="form-control fc-datepicker" name="end_date" id="end_date" placeholder="DD-MM-YYY" type="date">
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-6 col-sm-12 mb-24">
-                                        <div class="form-group"> <label class="form-label">Team Lead:</label> <select name="attendance" class="form-control custom-select select2 select2-hidden-accessible" data-placeholder="Select Department" tabindex="-1" aria-hidden="true" data-select2-id="select2-data-22-9i9m"><option label="Select Department" data-select2-id="select2-data-24-ktnv"></option> <option value="1">Designing Department</option> <option value="2">Development Department</option> <option value="3">Marketing Department</option> <option value="4">Human Resource Department</option> <option value="5">Managers Department</option> <option value="6">Application Department</option> <option value="7">Support Department</option> <option value="8">IT Department</option> <option value="9">Technical Department</option> <option value="10">Accounts Department</option> </select>
+                                        <div class="form-group"> <label class="form-label">Team Lead:</label> 
+                                            <select name="team_lead" class="form-control custom-select select2 select2-hidden-accessible" id="userDropdown" data-placeholder="Team Lead" tabindex="-1" aria-hidden="true" data-select2-id="select2-data-22-9i9m">
+                                                <!-- <option ></option> -->
+                                            </select>
                                             <span class="select2 select2-container select2-container--default" dir="ltr" data-select2-id="select2-data-23-72at" style="width: 100%;"><span class="selection"><span class="select2-selection select2-selection--single" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-disabled="false" aria-labelledby="select2-attendance-92-container" aria-controls="select2-attendance-92-container"><span class="select2-selection__rendered" id="select2-attendance-92-container" role="textbox" aria-readonly="true" title="Select Department"></span>
                                             <span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span>
                                             </span>
@@ -309,8 +323,8 @@
                                         </div>
                                     </div>
                                     <div class="col-md-6 col-sm-12 mb-24">
-                                        <div class="form-group"> <label class="form-label">Project Priority:</label> <select name="attendance" class="form-control custom-select select2 select2-hidden-accessible" data-placeholder="Select Priority" tabindex="-1" aria-hidden="true"
-                                                data-select2-id="select2-data-30-l6ni"><option label="Select Priority" data-select2-id="select2-data-32-qodq"></option> <option value="1">High</option> <option value="2">Medium</option> <option value="3">Low</option> </select>
+                                        <div class="form-group"> <label class="form-label">Project Priority:</label> <select name="priority" id="priority" class="form-control custom-select select2 select2-hidden-accessible" data-placeholder="Select Priority" tabindex="-1" aria-hidden="true"
+                                                data-select2-id="select2-data-30-l6ni"><option label="Select Priority" data-select2-id="select2-data-32-qodq"></option> <option value="High">High</option> <option value="Medium">Medium</option> <option value="Low">Low</option> </select>
                                             <span class="select2 select2-container select2-container--default" dir="ltr" data-select2-id="select2-data-31-dlj3" style="width: 100%;"><span class="selection"><span class="select2-selection select2-selection--single" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-disabled="false" aria-labelledby="select2-attendance-wo-container" aria-controls="select2-attendance-wo-container"><span class="select2-selection__rendered" id="select2-attendance-wo-container" role="textbox" aria-readonly="true" title="Select Priority"></span>
                                             <span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span>
                                             </span>
@@ -320,21 +334,16 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-md-6 col-sm-12 mb-24">
-                                        <div class="form-group"> <label class="form-label">Client:</label> <select name="attendance" class="form-control custom-select select2 select2-hidden-accessible" data-placeholder="Select Client" tabindex="-1" aria-hidden="true" data-select2-id="select2-data-38-9jkg"><option label="Select Client" data-select2-id="select2-data-40-q3xu"></option> <option value="1">Client 01</option> <option value="2">Client 02</option> <option value="3">Client 03</option> </select>
-                                            <span class="select2 select2-container select2-container--default" dir="ltr" data-select2-id="select2-data-39-684b" style="width: 100%;"><span class="selection"><span class="select2-selection select2-selection--single" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-disabled="false" aria-labelledby="select2-attendance-8z-container" aria-controls="select2-attendance-8z-container"><span class="select2-selection__rendered" id="select2-attendance-8z-container" role="textbox" aria-readonly="true" title="Enter Client"></span>
-                                            <span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span>
-                                            </span>
-                                            </span><span class="dropdown-wrapper" aria-hidden="true"></span></span>
-                                        </div>
+                                        <div class="form-group"> <label class="form-label">Client</label> <input required class="form-control" name="client" id="client" placeholder="Client Name"> </div>
                                     </div>
                                     <div class="col-md-6 col-sm-12 mb-24">
-                                        <div class="form-group"> <label class="form-label">Costing ( $ )</label> <input class="form-control" placeholder="Enter Price"> </div>
+                                        <div class="form-group"> <label class="form-label">Costing ( $ )</label> <input required class="form-control" name="costing" id="costing" placeholder="Enter Price"> </div>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-6 col-sm-12 mb-24">
                                         <div class="form-group "> <label class="form-label">Assign Team:</label> 
-                                            <ul class="list" id="userDropdown" >
+                                            <ul class="list" id="userList" >
                                             </ul>
                                             <span class="select2 select2-container select2-container--default" dir="ltr" data-select2-id="select2-data-39-684b" style="width: 100%;"><span class="selection"><span class="select2-selection select2-selection--single" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-disabled="false" aria-labelledby="select2-attendance-8z-container" aria-controls="select2-attendance-8z-container"><span class="select2-selection__rendered" id="select2-attendance-9z-container" role="textbox" aria-readonly="true" title="Enter Client"></span>
                                             <span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span>
@@ -361,12 +370,15 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="gr-btn mt-15"> 
+                                    <div>
+                                        <button class="btn btn-primary btn-lg mr-15 fs-16" type="submit" value="Register">SUBMIT</button>
+                                    </div>
+                                </div>
                             </form>
                         </div>
-                        <div class="gr-btn mt-15"> <a href="#" class="btn btn-danger btn-lg mr-15 fs-16">CLOSE</a> <a href="#" class="btn btn-primary btn-lg fs-16" onclick="not1()">SUBMIT</a> </div>
                     </div>
                 </div>
-
             </div>
 
 
@@ -488,54 +500,10 @@
     <script src="{% static 'js/shortcode.js' %}"></script>
     <script src="{% static 'js/pages/datepicker.js' %}"></script>
 
-    <script>
-    </script>
-    
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-        
-        fetch(`{% url 'projects:load_users' %}`)
-            
-            .then(response => response.json())
-            .then(users => {
-    
-            let options = '<li >Select a user</li>';
-            for (const user of users) {
-                if (user.name != '') {
-                    // options += `<option value="${user.id}">${user.name}</option>`;
-                    options += `<li draggable="true" value="${user.id}">${user.name}</li>`;
-                }
-            }
+    <!-- Helper JS -->
+    <script src="{% static 'helper_js/team_lead.js' %}"></script>
+    <script src="{% static 'helper_js/user_fetch.js' %}"></script>
 
-            userDropdown.innerHTML = options;
-
-            })
-            .catch(error => console.error('Error fetching users:', error));
-          });
-          
-        const lists = document.querySelectorAll('.list');
-        lists.forEach(list => {
-        list.addEventListener('dragstart', handleDragStart);
-        list.addEventListener('dragover', handleDragOver);
-        list.addEventListener('drop', handleDrop);
-        });
-
-        let draggedItem;
-
-        function handleDragStart(event) {
-        draggedItem = event.target;
-        }
-
-        function handleDragOver(event) {
-        event.preventDefault();
-        }
-
-        function handleDrop(event) {
-        event.preventDefault();
-        const targetList = event.currentTarget;
-        targetList.appendChild(draggedItem);
-        }
-    </script>
 </body>
 
 </html>

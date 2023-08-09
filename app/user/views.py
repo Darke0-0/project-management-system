@@ -1,20 +1,20 @@
 """
 Views for the user API.
 """
-from django import forms
 from django.contrib.auth import login, authenticate
 
-from rest_framework import generics, authentication, permissions
+from rest_framework import generics
 from django.views.generic import View
 from django.contrib.auth.forms import AuthenticationForm
 
-from django.contrib.auth.views import AuthenticationForm
 
-from rest_framework import status
 from django.shortcuts import redirect, render
 from user.serializers import (
     UserSerializer,
 )
+
+from django.contrib.auth.mixins import LoginRequiredMixin
+
 
 class CreateUserView(generics.CreateAPIView):
     """Create a new user in the system."""
@@ -31,7 +31,6 @@ class CreateUserView(generics.CreateAPIView):
         if serializer.is_valid():
             serializer.save()
             message = 'Registration Successful'
-            print(message)
             return render(request, 'user-login.html', context={'message': message})
         message = serializer.error_messages
         return render(request, 'new-account.html', {'serializer': serializer, 'message':message})
@@ -39,7 +38,7 @@ class CreateUserView(generics.CreateAPIView):
 class LoginPageView(View):
 
     def get(self, request):
-        return render(request, template_name="user-login.html")
+        return render(request, "user-login.html")
         
     def post(self, request):
         form = AuthenticationForm(request, data=request.POST)
@@ -50,17 +49,15 @@ class LoginPageView(View):
                 password=form.cleaned_data['password'],
             )
             if user is not None:
-                print('login')
                 login(request, user)
-                return redirect('user-profile.html')
+                return redirect('../me',request=request,permanent=True)
+            # return render(request, 'user-profile.html', context={'login-form': form, 'message': message})
         message = 'Login failed!'
         return render(request, 'user-login.html', context={'login-form': form, 'message': message})
 
-class ManageUserView(generics.RetrieveUpdateAPIView):
+class ManageUserView(generics.RetrieveUpdateAPIView, LoginRequiredMixin):
     """Manage the authenticated user."""
     serializer_class = UserSerializer
-    authentication_classes = [authentication.TokenAuthentication]
-    permission_classes = [permissions.IsAuthenticated]
 
     def get_object(self):
         """Retrieve and return the authenticated user."""
@@ -69,4 +66,11 @@ class ManageUserView(generics.RetrieveUpdateAPIView):
     def get(self, request, *args, **kwargs):
         serializer = self.serializer_class
         return render(request, 'new-account.html', {'serializer': serializer})
-    
+
+# Logout
+def logout(request):
+    try:
+        del request.session['_auth_user_id']
+        return redirect('user')
+    except:
+        return render(request, 'user-project.html')

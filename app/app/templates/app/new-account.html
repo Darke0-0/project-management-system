@@ -59,7 +59,7 @@
                                 User Profile
                             </a>
                         </li>
-<li>
+                        <li>
                             <a href="{% url 'user:token' %}">
                                 User Login
                             </a>
@@ -79,8 +79,13 @@
                     </a>
                     <ul class="sidebar-menu sidebar-menu-dropdown-content">
                         <li>
+                            <a href="{% url 'projects:user_project' %}">
+                                Project
+                            </a>
+                        </li>
+                        <li>
                             <a href="project.html">
-                               Project
+                               Project Report
                             </a>
                         </li>
                         <li>
@@ -89,7 +94,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="new-project.html">
+                            <a href="{% url 'projects:create_project' %}">
                                 New Project
                             </a>
                         </li>
@@ -261,7 +266,7 @@
                         <a class="dropdown-item d-block" href="#"><span class="badge bg-success float-end">11</span><i class="bx bx-wrench font-size-16 align-middle me-1"></i> <span>Settings</span></a>
                         <a class="dropdown-item" href="#"><i class="bx bx-lock-open font-size-16 align-middle me-1"></i> <span>Lock screen</span></a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item text-danger" href="{% url 'user:token' %}.html"><i class="bx bx-power-off font-size-16 align-middle me-1 text-danger"></i> <span>Logout</span></a>
+                        <a class="dropdown-item text-danger" href="{% url 'user:logout' %}"><i class="bx bx-power-off font-size-16 align-middle me-1 text-danger"></i> <span>Logout</span></a>
                     </div>
                 </div>
             </div>
