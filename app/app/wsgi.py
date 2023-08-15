@@ -1,16 +1,19 @@
-"""
-WSGI config for app project.
-
-It exposes the WSGI callable as a module-level variable named ``application``.
-
-For more information on this file, see
-https://docs.djangoproject.com/en/4.2/howto/deployment/wsgi/
-"""
-
 import os
 
-from django.core.wsgi import get_wsgi_application
+from django.core.asgi import get_asgi_application
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'app.settings')
 
-application = get_wsgi_application()
+application = get_asgi_application()
+
+from chat import routing  # noqa isort:skip
+ 
+from channels.routing import ProtocolTypeRouter, URLRouter  # noqa isort:skip
+ 
+ 
+application = ProtocolTypeRouter(
+    {
+        "http": get_asgi_application(),
+        "websocket": URLRouter(routing.websocket_urlpatterns),
+    }
+)

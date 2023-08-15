@@ -26,7 +26,6 @@ class TagSerializer(serializers.ModelSerializer):
         fields = ['id', 'name']
         read_only_fields = ['id']
 
-# Create your tests here.
 class ProjectsSerializer(serializers.ModelSerializer):
     """Serializer for projects."""
     tags = TagSerializer(many=True, required=False)

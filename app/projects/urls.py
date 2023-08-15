@@ -20,4 +20,6 @@ urlpatterns = [
     path('createproject/', views.ProjectCreateView.as_view(), name='create_project'),
     path('userproject/', views.ProjectSetView.as_view(), name='user_project'),
     path('load_users/', views.load_users, name='load_users'),
+    path('calendar/', views.ProjectCalenderView.as_view(), name='calendar'),
+    path('calendar_set/', views.ProjectCalenderView.project_set, name='calendar_set'),
 ]

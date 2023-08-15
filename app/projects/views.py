@@ -12,7 +12,6 @@ from rest_framework import (
     mixins,
     status,
 )
-from django.contrib.sessions.models import Session
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 from django.http import JsonResponse
@@ -61,6 +60,7 @@ class ProjectCreateView(generics.CreateAPIView, LoginRequiredMixin):
 
 class ProjectDetailsView(generics.CreateAPIView, LoginRequiredMixin):
     serializer_class = serializers.ProjectsSerializer
+    queryset = Projects.objects.all()
 
     # def get_queryset(self):
     #     """Retrieve projects for authenticated user."""
@@ -69,6 +69,18 @@ class ProjectDetailsView(generics.CreateAPIView, LoginRequiredMixin):
     def get(self, request):
         queryset = self.get_queryset()
         return render(request, "project-details.html", {'queryset': queryset})
+
+class ProjectCalenderView(generics.CreateAPIView, LoginRequiredMixin):
+    serializers = serializers.ProjectsSerializer
+    queryset = Projects.objects.all()
+
+    def project_set(self):
+        self.queryset = Projects.objects.values('title','start_date','end_date')
+        self.queryset = self.queryset.filter(team_lead=self.user)
+        return JsonResponse(list(self.queryset),safe=False)
+
+    def get(self, request):
+        return render(request, "calendar.html")
 
 class ProjectSetView(generics.CreateAPIView, LoginRequiredMixin):
     serializer_class = serializers.ProjectsSerializer
@@ -79,7 +91,6 @@ class ProjectSetView(generics.CreateAPIView, LoginRequiredMixin):
         user = self.request.user
         self.queryset = self.queryset.filter(team_lead=user)
         serialized_data = self.serializer_class(self.queryset, many=True).data
-        print(serialized_data)
         return self.queryset
     
     def get(self, request):

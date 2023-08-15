@@ -31,5 +31,10 @@ services:
       - POSTGRES_USER=devuser
       - POSTGRES_PASSWORD=changeme
 
+  redis:
+    image: "redis:5" 
+    ports:
+      - "6379:6379"
+
 volumes:
   dev-db-data:

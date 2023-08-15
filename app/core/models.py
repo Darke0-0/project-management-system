@@ -69,10 +69,40 @@ class Tag(models.Model):
 class Components(models.Model):
     """Components for projects."""
     name = models.CharField(max_length=255)
-    users = models.ManyToManyField(User)
+    users = models.ManyToManyField(get_user_model())
     client = models.CharField(max_length=255,null=True)
     priority = models.CharField(max_length=255,default='None')
     file = models.FileField(null=True)
 
     def __str__(self):
         return self.name
+
+class Chat(models.Model):
+    """Chat Model"""
+    room_name = models.CharField(max_length=20,blank=True)
+    users = models.ManyToManyField(get_user_model())
+    message = models.ManyToManyField('Messages',blank=True)
+
+    def __str__(self):
+        return self.room_name
+
+class Messages(models.Model):
+    """Messages Model"""
+    sender = models.ManyToManyField(get_user_model(),blank=True)
+    room = models.ForeignKey(Chat, on_delete=models.CASCADE)
+    content = models.TextField(blank=True)
+    timestamp = models.DateTimeField(auto_now_add=True)
+
+class GroupChat(models.Model):
+    """Group Chat Model"""
+    project = models.OneToOneField(Projects, on_delete=models.CASCADE)
+    users = models.ManyToManyField(get_user_model())
+
+    def __str__(self):
+        return self.project
+
+class GroupMessage(models.Model):
+    """Group Messages Model"""
+    room = models.ForeignKey(Chat, on_delete=models.CASCADE)
+    content = models.TextField()
+    timestamp = models.DateTimeField(auto_now_add=True)

@@ -2,9 +2,9 @@ window.onload = function() {
     team_lead();
   };
 
-  function team_lead() {
-        
-    fetch(`../load_users/`)
+function team_lead() {
+    
+    fetch(`http://127.0.0.1:8000/api/projects/load_users/`)
         .then(response => response.json())
         .then(users => {
 
@@ -19,4 +19,4 @@ window.onload = function() {
 
         })
         .catch(error => console.error('Error fetching users:', error));
-    };
+};

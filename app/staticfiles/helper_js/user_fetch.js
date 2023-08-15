@@ -10,7 +10,7 @@ function user_fetch() {
         .then(response => response.json())
         .then(users => {
 
-        let options = '<li >Select a user</li>';
+        let options = '';
         for (const user of users) {
             if (user.name != '') {
                 // options += `<option value="${user.id}">${user.name}</option>`;

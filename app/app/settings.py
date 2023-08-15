@@ -79,8 +79,7 @@ TEMPLATES = [
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'staticfiles'),]
 
-WSGI_APPLICATION = 'app.wsgi.application'
-
+ASGI_APPLICATION = 'app.asgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
@@ -145,9 +144,13 @@ REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': ['rest_framework.permissions.IsAuthenticated',],
 }
 
-JWT_AUTH = {
-    # Authorization:Token xxx
-    'JWT_AUTH_HEADER_PREFIX': 'Token',
-}
-
 LOGIN_REDIRECT_URL = 'me'
+
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            "hosts": [('127.0.0.1', 6379)],
+        },
+    },
+}
