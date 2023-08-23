@@ -22,6 +22,7 @@ function user_fetch() {
 
         })
         .catch(error => console.error('Error fetching users:', error));
+    const requestForm = document.getElementById('request-form');
       
     const lists = document.querySelectorAll('.list');
     lists.forEach(list => {
@@ -43,6 +44,7 @@ function user_fetch() {
     function handleDrop(event) {
     event.preventDefault();
     const targetList = event.currentTarget;
+    console.log(draggedItem)
     targetList.appendChild(draggedItem);
     }
     

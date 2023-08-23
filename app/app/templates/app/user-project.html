@@ -125,7 +125,7 @@
                     </ul>
                 </li>
                 <li>
-                    <a href="board.html">
+                    <a href="">
                         <i class='bx bxs-dashboard'></i>
                         <span>Board</span>
                     </a>
@@ -399,7 +399,7 @@
                                                         <tr class="odd">
                                                             <td class="text-center">1</td>
                                                             <td>
-                                                                <a href="#" class="d-flex "> <span>{{ project.title }}</span> </a>
+                                                                <a href="{% url 'task:view_task' project_id=project.id %}" class="d-flex "> <span>{{ project.title }}</span> </a>
                                                             </td>
                                                             <td><span class="badge badge-danger-light">High</span></td>
                                                             <td>{{ project.start_date }}</td>

@@ -115,7 +115,7 @@
                     </ul>
                 </li>
                 <li>
-                    <a href="board.html">
+                    <a href="">
                         <i class='bx bxs-dashboard'></i>
                         <span>Board</span>
                     </a>
@@ -353,9 +353,10 @@
             </div>
             <div class="row">
                 <div class="col-12">
+                    {% for project in queryset %}
                     <div class="box project">
                         <div class="box-header">
-                            <h4 class="box-title">Here will be full project name</h4>
+                            <h4 class="box-title">{{project.title}}</h4>
                             <div class="box-right d-flex">
                                 <a class="btn" href="project-details.html">Project Details</a>
                                 <div class="icon-ratting">
@@ -398,28 +399,7 @@
                         <div class="divider"></div>
                         <div class="box-body content">
                             <h4 class="title">Project Description</h4>
-                            <p class="fs-18 font-w400 font-main mt-27 mb-29">Etiam convallis elementum sapien, a aliquam turpis aliquam vitae. Praesent sollicitudin felis vel mi facilisis posuere. Nulla ultrices facilisis justo, non varius nisl semper vel. Interdum et malesuada fames ac ante ipsum primis
-                                in faucibus. Phasellus at ante mattis, condimentum velit et, dignissim nunc. Integer quis tincidunt purus. Duis dignissim mauris vel elit commodo.</p>
-                            <ul>
-                                <li>
-                                    <p class="fs-18 font-w600 color-primary mb-23"><span class="pr-19">1.</span>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                                </li>
-                                <li>
-                                    <p class="fs-18 font-w600 color-primary mb-23"><span class="pr-15">2.</span>Fusce vitae ligula iaculis, sollicitudin sem at, venenatis turpis.</p>
-                                </li>
-                                <li>
-                                    <p class="fs-18 font-w600 color-primary mb-23"><span class="pr-25">.</span>Maecenas pharetra mi sit amet dolor rhoncus, quis placerat elit cursus.</p>
-                                </li>
-                                <li>
-                                    <p class="fs-18 font-w600 color-primary mb-23"><span class="pr-15">3.</span>Nullam eleifend nisi nec diam varius, vitae malesuada ex eleifend.</p>
-                                </li>
-                                <li>
-                                    <p class="fs-18 font-w600 color-primary mb-23"><span class="pr-25">.</span>Integer convallis nisi quis vestibulum semper.</p>
-                                </li>
-                            </ul>
-                            <h6 class="mt-30">Proin rutrum ipsum quis sem faucibus, in elementum mi dignissim.</h6>
-                            <p class="mt-32 fs-18">Cras eu elit congue, placerat dui ut, tincidunt nisl. Nulla leo elit, pharetra bibendum justo quis, cursus consectetur erat. Sed nec posuere turpis. Maecenas nec bibendum purus. Nulla fringilla, lorem iaculis iaculis fermentum,
-                                ligula nibh mollis ipsum, et scelerisque risus ante eu sem. Phasellus ac sagittis nisi. Suspendisse potenti. Nunc volutpat dui ipsum. Suspendisse potenti.</p>
+                            <p class="fs-18 font-w400 font-main mt-27 mb-29">{{ project.description }}</p>
                             <ul class="list-img">
                                 <li>
                                     <div class="img-dv"><img src="{% static 'images/product/project-01.jpg' %}" alt=""></div>
@@ -442,8 +422,6 @@
                                         </a>
 
                                     </div>
-
-
                                 </li>
                             </ul>
 
@@ -576,6 +554,7 @@
                             </div>
                         </div>
                     </div>
+                    {% endfor %}
                 </div>
 
             </div>

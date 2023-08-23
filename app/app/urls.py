@@ -25,6 +25,7 @@ urlpatterns = [
     path('api/docs/', SpectacularSwaggerView.as_view(url_name='api-schema'), name="api-docs"),
     path('api/user/', include('user.urls')),
     path('api/projects/', include('projects.urls')),
+    path('api/task/', include('task.urls')),
     path('api/chat/', include('chat.urls')),
     path('api/chat/', include(routing.websocket_urlpatterns)),
 ]

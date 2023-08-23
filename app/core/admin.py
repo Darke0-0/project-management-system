@@ -47,3 +47,4 @@ class UserAdmin(BaseUserAdmin):
 admin.site.register(models.User, UserAdmin)
 admin.site.register(models.Projects)
 admin.site.register(models.Chat)
+admin.site.register(models.Task)

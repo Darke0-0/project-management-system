@@ -48,13 +48,38 @@ class Projects(models.Model):
     start_date = models.DateField()
     end_date = models.DateField()
     team_lead = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
-    costing = models.DecimalField(max_digits=8,decimal_places=2)
-    tags = models.ManyToManyField('Tag',blank=True)
-    components = models.ManyToManyField('Components',blank=True)
+    costing = models.DecimalField(max_digits=8,decimal_places=2,default=0.00)
+    users = models.ManyToManyField(get_user_model(),related_name='user_name',blank=True)
+    client = models.CharField(max_length=255,blank=True)
+    priority = models.CharField(max_length=255,default='None')
+    file = models.FileField(blank=True)
 
     def __str__(self):
         return self.title
     
+class Task(models.Model):
+    """Project Model"""
+
+    state_choice = (
+        ('T', 'To-Do'),
+        ('O', 'Ongoing'),
+        ('C', 'Complete'),
+        ('V', 'Verified'),
+    )
+
+    project = models.ForeignKey(Projects, on_delete=models.CASCADE)
+    heading = models.CharField(max_length=255)
+    description = models.TextField(blank=True)
+    start_date = models.DateTimeField()
+    end_date = models.DateTimeField()
+    users = models.ForeignKey(get_user_model(),related_name='user',blank=True, on_delete=models.CASCADE)
+    priority = models.CharField(max_length=255,default='None')
+    file = models.FileField(blank=True)
+    state = models.CharField(choices=state_choice,default="T")
+
+    def __str__(self):
+        return self.heading
+     
 class Tag(models.Model):
     """Tag for filtering projects."""
     name = models.CharField(max_length=255)
@@ -62,18 +87,6 @@ class Tag(models.Model):
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
     )
-    def __str__(self):
-        return self.name
-
-
-class Components(models.Model):
-    """Components for projects."""
-    name = models.CharField(max_length=255)
-    users = models.ManyToManyField(get_user_model())
-    client = models.CharField(max_length=255,null=True)
-    priority = models.CharField(max_length=255,default='None')
-    file = models.FileField(null=True)
-
     def __str__(self):
         return self.name
 
